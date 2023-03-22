@@ -30,7 +30,11 @@ source("../resources/WES/maftools/R/plotMutProfile.r")
 # settings and metadata
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # read clinical feature (cancer subtype)
-clinical <- read.table("../resources/WES/clinical_labels.txt", header=T, sep="\t")
+clinical <- read.table(
+  "../resources/WES/clinical_labels.txt",
+  header=T,
+  sep="\t"
+)
 
 # read genes with pathway annotations
 pways <- read.table(
@@ -221,64 +225,6 @@ oncoplot(
 ); dev.off()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# maftools analyses, cont'd.
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# plot pretty summary of mutations
-plotmafSummary(data, showBarcodes = F, top = 8)
-
-# create matrix of mutation counts for each sample and write to .csv file
-mat <- mutCountMatrix(data)
-fwrite(
-  mat,
-  file=paste0(
-    "WES_out/LCM_mutCountMatrix_depth",
-    depth,
-    ".csv"
-  ),
-  row.names=TRUE
-)
-
-# plot oncogenic pathways affected across samples
-pathways <- OncogenicPathways(data)
-dev.copy(
-  png,
-  paste0(
-    "WES_out/LCM_pathways_depth",
-    depth,
-    ".png"
-  ),
-  res=100
-); dev.off()
-
-#exclusive/co-occurance event analysis on top 10 mutated genes. 
-interactions <- somaticInteractions(
-  maf = data,
-  top = 40,
-  pvalue = c(0.05, 0.1)
-)
-dev.copy(
-  png,
-  paste0(
-    "WES_out/LCM_interactions_depth",
-    depth,
-    ".png"
-  ),
-  res=400,
-  width=2000,
-  height=2000,
-); dev.off()
-
-# clinical enrichment
-ce = clinicalEnrichment(maf = data, clinicalFeature = "Subtype")
-ce$groupwise_comparision[p_value < 0.05]
-plotEnrichmentResults(
-  enrich_res = ce,
-  pVal = 0.05,
-  geneFontSize = 0.5,
-  annoFontSize = 0.6
-)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # MesKit prep
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # write MAF file for MesKit analysis
@@ -333,7 +279,7 @@ for (pat in patient_ids) {
   print(pat)
   write.csv(
     eval(parse(text = paste0("LCM.math$`", pat, "`"))),
-    file=paste0(pat, "/", pat, "_MATHscore_depth", depth, ".csv")
+    file=paste0("WES_out/", pat, "_MATHscore_depth", depth, ".csv")
   )
 }
 
@@ -362,8 +308,7 @@ for (pat in patient_ids) {
   )
   png(
     filename=paste0(
-      pat,
-      "/",
+      "WES_out/",
       pat,
       "_MATHclusters_depth",
       depth,
@@ -751,8 +696,7 @@ for (pat in patient_ids) {
   # plot COSMIC signatures fits
   png(
     filename=paste0(
-      pat,
-      "/",
+      "WES_out/",
       pat,
       "_COSMICsignaturesfit_depth",
       depth,
@@ -895,8 +839,7 @@ for (pat in patient_ids) {
   print(pat)
   png(
     filename=paste0(
-      pat,
-      "/",
+      "WES_out/",
       pat,
       "_tree_depth",
       depth,
@@ -953,8 +896,7 @@ for (pat in patient_ids) {
   # combine into master plot
   png(
     filename=paste0(
-      pat,
-      "/",
+      "WES_out/",
       pat,
       "_tree_oncoplot_depth",
       depth,
@@ -1011,8 +953,7 @@ for (pat in patient_ids) {
   # combine into master plot
   png(
     filename=paste0(
-      pat,
-      "/",
+      "WES_out/",
       pat,
       "_tree_COSMICsignatures_depth",
       depth,
@@ -1043,8 +984,7 @@ for (pat in patient_ids) {
   # plot COSMIC signatures fits
   png(
     filename=paste0(
-      pat,
-      "/",
+      "WES_out/",
       pat,
       "_COSMICsignaturesv3fit_depth",
       depth,
@@ -1173,17 +1113,34 @@ write.csv(
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 write.csv(
   x=data@variants.per.sample,
-  file="../resources/WES/LCM_variants_per_sample.csv"
+  file="WES_out/LCM_variants_per_sample.csv"
 )
 
-muts <- data.frame(matrix(ncol = 4, nrow = length(levels(genesToBarcodes(data, genes="BRAF")$BRAF$Tumor_Sample_Barcode))), row.names = levels(genesToBarcodes(data, genes="BRAF")$BRAF$Tumor_Sample_Barcode))
+muts <- data.frame(
+  matrix(
+    ncol = 4, nrow = length(
+      levels(genesToBarcodes(data, genes="BRAF")$BRAF$Tumor_Sample_Barcode)
+    )
+  ),
+  row.names = levels(
+    genesToBarcodes(data, genes="BRAF")$BRAF$Tumor_Sample_Barcode
+  )
+)
 colnames(muts) <- c("APC", "KRAS", "TP53", "BRAF")
 muts$BRAF <- "F"
 muts$TP53 <- "F"
 muts$APC <- "F"
 muts$KRAS <- "F"
-muts[as.character(genesToBarcodes(data, genes="BRAF")$BRAF$Tumor_Sample_Barcode), "BRAF"] <- "T"
-muts[as.character(genesToBarcodes(data, genes="KRAS")$KRAS$Tumor_Sample_Barcode), "KRAS"] <- "T"
-muts[as.character(genesToBarcodes(data, genes="TP53")$TP53$Tumor_Sample_Barcode), "TP53"] <- "T"
-muts[as.character(genesToBarcodes(data, genes="APC")$APC$Tumor_Sample_Barcode), "APC"] <- "T"
-write.csv(x=muts, file="../resources/WES/CRC_mutations_LCM.csv")
+muts[
+  as.character(genesToBarcodes(data, genes="BRAF")$BRAF$Tumor_Sample_Barcode),
+  "BRAF"] <- "T"
+muts[
+  as.character(genesToBarcodes(data, genes="KRAS")$KRAS$Tumor_Sample_Barcode),
+  "KRAS"] <- "T"
+muts[
+  as.character(genesToBarcodes(data, genes="TP53")$TP53$Tumor_Sample_Barcode),
+  "TP53"] <- "T"
+muts[
+  as.character(genesToBarcodes(data, genes="APC")$APC$Tumor_Sample_Barcode),
+  "APC"] <- "T"
+write.csv(x=muts, file="WES_out/CRC_mutations_LCM.csv")

@@ -1,9 +1,61 @@
 Genes	Pathway
 APC	WNT signaling
-KRAS	CRC drivers
-TP53	CRC drivers
-BRAF	CRC drivers
-POLG	Mismatch repair
+APC2	WNT signaling
+RNF43	WNT signaling
+ZNRF3	WNT signaling
+AXIN2	WNT signaling
+RSPO1	WNT signaling
+TCF7L2	WNT signaling
+CTNNB1	WNT signaling
+CDH1	WNT signaling
+CELSR2	WNT signaling
+FAT1	WNT signaling
+FAT2	WNT signaling
+FAT3	WNT signaling
+NKD1	WNT signaling
+KRAS	BRAF/KRAS/mTOR
+BRAF	BRAF/KRAS/mTOR
+PIK3CA	BRAF/KRAS/mTOR
+MTOR	BRAF/KRAS/mTOR
+EGFR	BRAF/KRAS/mTOR
+ERBB2	BRAF/KRAS/mTOR
+TET1	BRAF/KRAS/mTOR
+GNAS	BRAF/KRAS/mTOR
+AKAP9	BRAF/KRAS/mTOR
+DUSP19	BRAF/KRAS/mTOR
+NKD2	BRAF/KRAS/mTOR
+LRIG1	BRAF/KRAS/mTOR
+MEK1	BRAF/KRAS/mTOR
+MEK2	BRAF/KRAS/mTOR
+PI3K	BRAF/KRAS/mTOR
+AKT	BRAF/KRAS/mTOR
+PIP2	BRAF/KRAS/mTOR
+PIP3	BRAF/KRAS/mTOR
+ERK1	BRAF/KRAS/mTOR
+ERK2	BRAF/KRAS/mTOR
+FRAP	BRAF/KRAS/mTOR
+FRAP1	BRAF/KRAS/mTOR
+FRAP2	BRAF/KRAS/mTOR
+TGFBR1	TGFB signaling
+TGFBR2	TGFB signaling
+SMAD1	TGFB signaling
+SMAD2	TGFB signaling
+SMAD3	TGFB signaling
+SMAD4	TGFB signaling
+SMAD5	TGFB signaling
+SMAD6	TGFB signaling
+SMAD7	TGFB signaling
+SMAD8	TGFB signaling
+BMPR2	TGFB signaling
+BMPR1A	TGFB signaling
+MKI67	Cell cycle & DNA repair
+TP53	Cell cycle & DNA repair
+BRCA1	Cell cycle & DNA repair
+BRCA2	Cell cycle & DNA repair
+MED1	Cell cycle & DNA repair
+HERC1	Cell cycle & DNA repair
+ATM	Cell cycle & DNA repair
+POLG	Cell cycle & DNA repair
 MLH1	Mismatch repair
 MLH2	Mismatch repair
 MLH3	Mismatch repair
