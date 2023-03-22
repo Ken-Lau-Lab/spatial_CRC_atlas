@@ -10,3 +10,7 @@ __pycache__/
 *.so
 # visual studio
 .vscode/
+# downloaded data
+data/WES/
+data/scRNA/
+data/ST/
