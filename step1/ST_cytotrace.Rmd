@@ -21,7 +21,7 @@ rm(list = ls())
 setwd("/home/cody/git/spatial_CRC_atlas/step1/")
 
 # make directory for outputs
-dir.create("./WES_out/", showWarnings = FALSE)
+dir.create("./ST_out/", showWarnings = FALSE)
 ```
 
 ```{r}
@@ -294,6 +294,6 @@ for (i in c("2","3","4","5","6","7","8")){
       enableFast = TRUE
     )
 
-    write.csv(results$CytoTRACE, paste0("WES_out/", "8899_", i, "_CytoTRACE.csv"))
+    write.csv(results$CytoTRACE, paste0("ST_out/", "8899_", i, "_CytoTRACE.csv"))
 } 
 ```

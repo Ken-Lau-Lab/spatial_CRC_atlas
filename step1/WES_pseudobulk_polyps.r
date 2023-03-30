@@ -437,7 +437,7 @@ write.csv(
 
 write.csv(
   x=data@variants.per.sample,
-  file="../resources/WES/pseudobulk_variants_per_sample.csv"
+  file="WES_out/pseudobulk_variants_per_sample.csv"
 )
 
 muts <- data.frame(matrix(
@@ -466,4 +466,4 @@ muts[
 muts[
   as.character(genesToBarcodes(data, genes="APC")$APC$Tumor_Sample_Barcode),
   "APC"] <- "T"
-write.csv(x=muts, file="../resources/WES/CRC_mutations_pseudobulk.csv")
+write.csv(x=muts, file="WES_out/CRC_mutations_pseudobulk.csv")

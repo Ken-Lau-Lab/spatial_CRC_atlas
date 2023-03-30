@@ -3,7 +3,7 @@
 
 # notebook checkpoints
 .ipynb_checkpoints/
-.nb.html
+*.nb.html
 
 # compilation
 __pycache__/

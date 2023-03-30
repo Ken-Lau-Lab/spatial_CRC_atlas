@@ -280,7 +280,12 @@ CytoTRACE_fixed <- function(mat, batch = NULL, enableFast = TRUE,
 ```
 
 ```{r}
-for (i in c("Broad_Epi_sub")){
+for (i in c(
+  "Broad_Epi_CRC_NoNormal_ReFiltered_Counts",
+  "Broad_NonEpi_sub",
+  "VUMC_HTAN_DIS_EPI_V2",
+  "VUMC_HTAN_VAL_DIS_NONEPI_V2"
+)){
     data_in <- paste0("../data/scRNA/", i, ".h5ad")
     results <- CytoTRACE_fixed(
       prepare_data(data_in),
