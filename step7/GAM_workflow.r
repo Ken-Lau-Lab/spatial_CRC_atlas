@@ -1,4 +1,12 @@
-setwd("~/Dropbox (VU Basic Sciences)/fuzzy-lasagna/data/visium/tradeseq/")
+rm(list = ls())
+
+# SET CORRECT WORKING DIRECTORY
+setwd("/home/cody/git/spatial_CRC_atlas/step7/")
+
+# make directory for outputs
+dir.create("./ST_out/", showWarnings = FALSE)
+dir.create("./ST_out/tradeseq/", showWarnings = FALSE)
+dir.create("./ST_out/tradeseq/plots/", showWarnings = FALSE)
 
 library(RColorBrewer)
 library(SingleCellExperiment)
@@ -15,9 +23,15 @@ palette(brewer.pal(8, "Dark2"))
 ## ----------------------------------------------------------------------------
 # read in data
 ## ----------------------------------------------------------------------------
-tradeseq.data <- read.csv("tradeseq_09Feb23.csv", row.names = 1)
+tradeseq.data <- read.csv(
+  "../step6/ST_out/tradeseq/tradeseq.csv",
+  row.names = 1
+)
 
-gene.counts <- read.csv("tradeseq_counts_09Feb23.csv", row.names = 1)
+gene.counts <- read.csv(
+  "../step6/ST_out/tradeseq/tradeseq_counts.csv",
+  row.names = 1
+)
 gene.counts <- t(gene.counts)
 
 ## ----------------------------------------------------------------------------
@@ -64,14 +78,14 @@ UpSetR::upset(
 o <- order(gene.assocRes$waldStat_1, decreasing = TRUE)
 write.csv(
   x=gene.assocRes[o,],
-  file=paste0("associationTest_HM.csv"),
+  file=paste0("ST_out/tradeseq/associationTest_HM.csv"),
   row.names=T
 )
 for (i in seq_len(3)) {
   sigGene <- names(gene.sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/associationTest_HM_rank",
+      "Saving plot: ST_out/tradeseq/plots/associationTest_HM_rank",
       i,
       "_",
       sigGene,
@@ -80,7 +94,7 @@ for (i in seq_len(3)) {
   )
   png(
     filename=paste0(
-      "plots/associationTest_HM_rank",
+      "ST_out/tradeseq/plots/associationTest_HM_rank",
       i,
       "_",
       sigGene,
@@ -99,14 +113,14 @@ for (i in seq_len(3)) {
 o <- order(gene.assocRes$waldStat_2, decreasing = TRUE)
 write.csv(
   x=gene.assocRes[o,],
-  file=paste0("associationTest_CIN.csv"),
+  file=paste0("ST_out/tradeseq/associationTest_CIN.csv"),
   row.names=T
 )
 for (i in seq_len(3)) {
   sigGene <- names(gene.sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/associationTest_CIN_rank",
+      "Saving plot: ST_out/tradeseq/plots/associationTest_CIN_rank",
       i,
       "_",
       sigGene,
@@ -115,7 +129,7 @@ for (i in seq_len(3)) {
   )
   png(
     filename=paste0(
-      "plots/associationTest_CIN_rank",
+      "ST_out/tradeseq/plots/associationTest_CIN_rank",
       i,
       "_",
       sigGene,
@@ -134,14 +148,14 @@ for (i in seq_len(3)) {
 for (i in c("DDR1","TGFBI","PAK4","DPEP1")) {
   print(
     paste0(
-      "Saving plot: plots/associationTest_",
+      "Saving plot: ST_out/tradeseq/plots/associationTest_",
       i,
       ".png"
     )
   )
   png(
     filename=paste0(
-      "plots/associationTest_",
+      "ST_out/tradeseq/plots/associationTest_",
       i,
       ".png"
     ),
@@ -163,14 +177,14 @@ gene.startRes <- startVsEndTest(gene.sce, lineages=TRUE)
 o <- order(gene.startRes$logFClineage1, decreasing = TRUE)
 write.csv(
   x=gene.startRes[o,],
-  file=paste0("startVsEndTest_HM.csv"),
+  file=paste0("ST_out/tradeseq/startVsEndTest_HM.csv"),
   row.names=T
 )
 for (i in seq_len(3)) {
   sigGene <- names(gene.sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/startVsEndTest_HM_rank",
+      "Saving plot: ST_out/tradeseq/plots/startVsEndTest_HM_rank",
       i,
       "_",
       sigGene,
@@ -179,7 +193,7 @@ for (i in seq_len(3)) {
   )
   png(
     filename=paste0(
-      "plots/startVsEndTest_HM_rank",
+      "ST_out/tradeseq/plots/startVsEndTest_HM_rank",
       i,
       "_",
       sigGene,
@@ -198,14 +212,14 @@ for (i in seq_len(3)) {
 o <- order(gene.startRes$logFClineage2, decreasing = TRUE)
 write.csv(
   x=gene.startRes[o,],
-  file=paste0("startVsEndTest_CIN.csv"),
+  file=paste0("ST_out/tradeseq/startVsEndTest_CIN.csv"),
   row.names=T
 )
 for (i in seq_len(3)) {
   sigGene <- names(gene.sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/startVsEndTest_CIN_rank",
+      "Saving plot: ST_out/tradeseq/plots/startVsEndTest_CIN_rank",
       i,
       "_",
       sigGene,
@@ -214,7 +228,7 @@ for (i in seq_len(3)) {
   )
   png(
     filename=paste0(
-      "plots/startVsEndTest_CIN_rank",
+      "ST_out/tradeseq/plots/startVsEndTest_CIN_rank",
       i,
       "_",
       sigGene,
@@ -245,14 +259,14 @@ gene.endRes <- diffEndTest(gene.sce)
 o <- order(gene.endRes$logFC1_2, decreasing = TRUE)
 write.csv(
   x=gene.endRes[o,],
-  file=paste0("diffEndTest_HM.csv"),
+  file=paste0("ST_out/tradeseq/diffEndTest_HM.csv"),
   row.names=T
 )
 for (i in seq_len(3)) {
   sigGene <- names(gene.sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/diffEndTest_HM_rank",
+      "Saving plot: ST_out/tradeseq/plots/diffEndTest_HM_rank",
       i,
       "_",
       sigGene,
@@ -261,7 +275,7 @@ for (i in seq_len(3)) {
   )
   png(
     filename=paste0(
-      "plots/diffEndTest_HM_rank",
+      "ST_out/tradeseq/plots/diffEndTest_HM_rank",
       i,
       "_",
       sigGene,
@@ -280,14 +294,14 @@ for (i in seq_len(3)) {
 o <- order(gene.endRes$logFC1_2, decreasing = FALSE)
 write.csv(
   x=gene.endRes[o,],
-  file=paste0("diffEndTest_CIN.csv"),
+  file=paste0("ST_out/tradeseq/diffEndTest_CIN.csv"),
   row.names=T
 )
 for (i in seq_len(3)) {
   sigGene <- names(gene.sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/diffEndTest_CIN_rank",
+      "Saving plot: ST_out/tradeseq/plots/diffEndTest_CIN_rank",
       i,
       "_",
       sigGene,
@@ -296,7 +310,7 @@ for (i in seq_len(3)) {
   )
   png(
     filename=paste0(
-      "plots/diffEndTest_CIN_rank",
+      "ST_out/tradeseq/plots/diffEndTest_CIN_rank",
       i,
       "_",
       sigGene,
@@ -381,7 +395,7 @@ cat_df = data.frame("Tumor class" = c(rep("HM",50),rep("CIN",50)), check.names =
 rownames(cat_df) = colnames(yhatSmoothScaled)
 
 png(
-  filename="plots/topgenes_grouped_heatmap.png",
+  filename="ST_out/tradeseq/plots/topgenes_grouped_heatmap.png",
   width=4000,
   height=3000,
   res=500,
@@ -446,7 +460,7 @@ colnames(yhatSmoothScaled) <- stringr::str_replace_all(
 )
 
 png(
-  filename="plots/topgenes_grouped_ordered_heatmap.png",
+  filename="ST_out/tradeseq/plots/topgenes_grouped_ordered_heatmap.png",
   width=3500,
   height=3000,
   res=500,
@@ -488,7 +502,10 @@ dev.off()
 ## ----------------------------------------------------------------------------
 # read in data
 ## ----------------------------------------------------------------------------
-counts <- read.csv("tradeseq_signatures_cellstates_09Feb23.csv", row.names = 1)
+counts <- read.csv(
+  "../step6/ST_out/tradeseq/tradeseq_signatures_cellstates.csv",
+  row.names = 1
+)
 counts <- t(counts)
 
 ## ----------------------------------------------------------------------------
@@ -537,14 +554,14 @@ UpSetR::upset(
 o <- order(assocRes$waldStat_1, decreasing = TRUE)
 write.csv(
   x=assocRes[o,],
-  file=paste0("associationTest_HM_sigs.csv"),
+  file=paste0("ST_out/tradeseq/associationTest_HM_sigs.csv"),
   row.names=T
 )
 for (i in seq_len(10)) {
   sigGene <- names(sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/associationTest_HM_rank",
+      "Saving plot: ST_out/tradeseq/plots/associationTest_HM_rank",
       i,
       "_",
       sigGene,
@@ -553,7 +570,7 @@ for (i in seq_len(10)) {
   )
   png(
     filename=paste0(
-      "plots/associationTest_HM_rank",
+      "ST_out/tradeseq/plots/associationTest_HM_rank",
       i,
       "_",
       sigGene,
@@ -572,14 +589,14 @@ for (i in seq_len(10)) {
 o <- order(assocRes$waldStat_2, decreasing = TRUE)
 write.csv(
   x=assocRes[o,],
-  file=paste0("associationTest_CIN_sigs.csv"),
+  file=paste0("ST_out/tradeseq/associationTest_CIN_sigs.csv"),
   row.names=T
 )
 for (i in seq_len(10)) {
   sigGene <- names(sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/associationTest_CIN_rank",
+      "Saving plot: ST_out/tradeseq/plots/associationTest_CIN_rank",
       i,
       "_",
       sigGene,
@@ -588,7 +605,7 @@ for (i in seq_len(10)) {
   )
   png(
     filename=paste0(
-      "plots/associationTest_CIN_rank",
+      "ST_out/tradeseq/plots/associationTest_CIN_rank",
       i,
       "_",
       sigGene,
@@ -607,14 +624,14 @@ for (i in seq_len(10)) {
 for (i in c("DDR1","PAK4","TGFBI","DPEP1")) {
   print(
     paste0(
-      "Saving plot: plots/associationTest_",
+      "Saving plot: ST_out/tradeseq/plots/associationTest_",
       i,
       ".png"
     )
   )
   png(
     filename=paste0(
-      "plots/associationTest_",
+      "ST_out/tradeseq/plots/associationTest_",
       i,
       ".png"
     ),
@@ -634,14 +651,14 @@ startRes <- startVsEndTest(sce, lineages=TRUE)
 o <- order(startRes$logFClineage1, decreasing = TRUE)
 write.csv(
   x=startRes[o,],
-  file=paste0("startVsEndTest_HM_sigs.csv"),
+  file=paste0("ST_out/tradeseq/startVsEndTest_HM_sigs.csv"),
   row.names=T
 )
 for (i in seq_len(10)) {
   sigGene <- names(sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/startVsEndTest_HM_sigs_rank",
+      "Saving plot: ST_out/tradeseq/plots/startVsEndTest_HM_sigs_rank",
       i,
       "_",
       sigGene,
@@ -650,7 +667,7 @@ for (i in seq_len(10)) {
   )
   png(
     filename=paste0(
-      "plots/startVsEndTest_HM_sigs_rank",
+      "ST_out/tradeseq/plots/startVsEndTest_HM_sigs_rank",
       i,
       "_",
       sigGene,
@@ -669,14 +686,14 @@ for (i in seq_len(10)) {
 o <- order(startRes$logFClineage2, decreasing = TRUE)
 write.csv(
   x=startRes[o,],
-  file=paste0("startVsEndTest_CIN_sigs.csv"),
+  file=paste0("ST_out/tradeseq/startVsEndTest_CIN_sigs.csv"),
   row.names=T
 )
 for (i in seq_len(10)) {
   sigGene <- names(sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/startVsEndTest_CIN_sigs_rank",
+      "Saving plot: ST_out/tradeseq/plots/startVsEndTest_CIN_sigs_rank",
       i,
       "_",
       sigGene,
@@ -685,7 +702,7 @@ for (i in seq_len(10)) {
   )
   png(
     filename=paste0(
-      "plots/startVsEndTest_CIN_sigs_rank",
+      "ST_out/tradeseq/plots/startVsEndTest_CIN_sigs_rank",
       i,
       "_",
       sigGene,
@@ -714,14 +731,14 @@ endRes <- diffEndTest(sce)
 o <- order(endRes$logFC1_2, decreasing = TRUE)
 write.csv(
   x=endRes[o,],
-  file=paste0("diffEndTest_HM_sigs.csv"),
+  file=paste0("ST_out/tradeseq/diffEndTest_HM_sigs.csv"),
   row.names=T
 )
 for (i in seq_len(10)) {
   sigGene <- names(sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/diffEndTest_HM_sigs_rank",
+      "Saving plot: ST_out/tradeseq/plots/diffEndTest_HM_sigs_rank",
       i,
       "_",
       sigGene,
@@ -730,7 +747,7 @@ for (i in seq_len(10)) {
   )
   png(
     filename=paste0(
-      "plots/diffEndTest_HM_sigs_rank",
+      "ST_out/tradeseq/plots/diffEndTest_HM_sigs_rank",
       i,
       "_",
       sigGene,
@@ -749,14 +766,14 @@ for (i in seq_len(10)) {
 o <- order(endRes$logFC1_2, decreasing = FALSE)
 write.csv(
   x=endRes[o,],
-  file=paste0("diffEndTest_CIN_sigs.csv"),
+  file=paste0("ST_out/tradeseq/diffEndTest_CIN_sigs.csv"),
   row.names=T
 )
 for (i in seq_len(10)) {
   sigGene <- names(sce)[o[i]]
   print(
     paste0(
-      "Saving plot: plots/diffEndTest_CIN_sigs_rank",
+      "Saving plot: ST_out/tradeseq/plots/diffEndTest_CIN_sigs_rank",
       i,
       "_",
       sigGene,
@@ -765,7 +782,7 @@ for (i in seq_len(10)) {
   )
   png(
     filename=paste0(
-      "plots/diffEndTest_CIN_sigs_rank",
+      "ST_out/tradeseq/plots/diffEndTest_CIN_sigs_rank",
       i,
       "_",
       sigGene,
@@ -837,7 +854,7 @@ cat_df = data.frame("Tumor class" = c(rep("HM",50),rep("CIN",50)), check.names =
 rownames(cat_df) = colnames(yhatSmoothScaled)
 
 png(
-  filename="plots/immexcl_heatmap.png",
+  filename="ST_out/tradeseq/plots/immexcl_heatmap.png",
   width=4000,
   height=2100,
   res=500,
@@ -987,7 +1004,7 @@ heatSmooth_Immune <- pheatmap::pheatmap(
 )
 
 png(
-  filename="plots/cellstate_heatmap.png",
+  filename="ST_out/tradeseq/plots/cellstate_heatmap.png",
   width=5000,
   height=2800,
   res=500,
@@ -1014,18 +1031,18 @@ all.sigs <- c(
 
 write.csv(
   x=rbind(endRes[all.sigs,], gene.endRes[all.genes,]) %>% tidyr::drop_na(),
-  file=paste0("diffEndTest_comb.csv"),
+  file=paste0("ST_out/tradeseq/diffEndTest_comb.csv"),
   row.names=T
 )
 
 write.csv(
   x=rbind(startRes[all.sigs,], gene.startRes[all.genes,]) %>% tidyr::drop_na(),
-  file=paste0("startVsEndTest_comb.csv"),
+  file=paste0("ST_out/tradeseq/startVsEndTest_comb.csv"),
   row.names=T
 )
 
 write.csv(
   x=rbind(assocRes[all.sigs,], gene.assocRes[all.genes,]) %>% tidyr::drop_na(),
-  file=paste0("associationTest_comb.csv"),
+  file=paste0("ST_out/tradeseq/associationTest_comb.csv"),
   row.names=T
 )
