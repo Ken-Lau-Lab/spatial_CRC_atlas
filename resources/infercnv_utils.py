@@ -10,7 +10,13 @@ base_colordict = {
 }
 
 
-def load_cnv(pat, sample_key, CNV_group="patient_name"):
+def load_cnv(
+        pat,
+        sample_key,
+        CNV_group="patient_name",
+        dataset_dir="datasets/",
+        infercnv_dir="infercnv/",
+    ):
     """
     pat: str
         Patient ID
@@ -21,11 +27,11 @@ def load_cnv(pat, sample_key, CNV_group="patient_name"):
     key_tmp = sample_key.loc[sample_key[CNV_group] == pat, :].copy()
     outs = []
     for s in key_tmp.index:
-        a = sc.read("datasets/{}_master.h5ad".format(s))
-        print("Read adata from datasets/{}_master.h5ad".format(s))
+        a = sc.read("{}/{}_master.h5ad".format(dataset_dir, s))
+        print("Read adata from {}/{}_master.h5ad".format(dataset_dir, s))
 
         # read in CNV matrix and put in a.obsm slot
-        tmp = np.load("infercnv/{}_cnv.npz".format(s), allow_pickle="TRUE")
+        tmp = np.load("{}/{}_cnv.npz".format(infercnv_dir, s), allow_pickle="TRUE")
         a.obsm["X_cnv"] = tmp.f.arr_0.item()
 
         # append to patient adata list
@@ -42,7 +48,8 @@ def load_cnv(pat, sample_key, CNV_group="patient_name"):
 
     # read in CNV genomic partitions
     a_comb.uns["cnv"] = np.load(
-        "infercnv/uns_cnv_{}.npy".format(
+        "{}/uns_cnv_{}.npy".format(
+            infercnv_dir,
             sample_key.loc[sample_key[CNV_group] == pat, "CNV_group"][0]
         ),
         allow_pickle="TRUE",
@@ -51,7 +58,14 @@ def load_cnv(pat, sample_key, CNV_group="patient_name"):
     return a_comb
 
 
-def curate_cnv_ST(pat, d, sample_key, CNV_group="CNV_group"):
+def curate_cnv_ST(
+        pat,
+        d,
+        sample_key,
+        CNV_group="CNV_group",
+        dataset_dir="datasets/",
+        infercnv_dir="infercnv/",
+    ):
     """
     pat: str
         Patient ID
@@ -67,14 +81,14 @@ def curate_cnv_ST(pat, d, sample_key, CNV_group="CNV_group"):
     )
     colordict = {**base_colordict, **clones_colordict}
     # save CNV cluster colors
-    np.save("infercnv/cnv_clone_colors_{}.npy".format(pat), colordict)
+    np.save("{}/cnv_clone_colors_{}.npy".format(infercnv_dir, pat), colordict)
 
     # read in patient anndatas and concatenate
     key_tmp = sample_key.loc[sample_key[CNV_group] == pat, :].copy()
     outs = []
     for s in key_tmp.index:
-        a = sc.read("datasets/{}_master.h5ad".format(s))
-        print("Read adata from datasets/{}_master.h5ad".format(s))
+        a = sc.read("{}/{}_master.h5ad".format(dataset_dir, s))
+        print("Read adata from {}/{}_master.h5ad".format(dataset_dir, s))
 
         # map new CNV clone values into adata.obs
         print("Mapping new 'CNV clone' values into adata.obs")
@@ -86,11 +100,11 @@ def curate_cnv_ST(pat, d, sample_key, CNV_group="CNV_group"):
         ]
 
         # save anndata back to master
-        a.write("datasets/{}_master.h5ad".format(s), compression="gzip")
-        print("Saved adata to datasets/{}_master.h5ad".format(s))
+        a.write("{}/{}_master.h5ad".format(dataset_dir, s), compression="gzip")
+        print("Saved adata to {}/{}_master.h5ad".format(dataset_dir, s))
 
         # read in CNV matrix and put in a.obsm slot
-        tmp = np.load("infercnv/{}_cnv.npz".format(s), allow_pickle="TRUE")
+        tmp = np.load("{}/{}_cnv.npz".format(infercnv_dir, s), allow_pickle="TRUE")
         a.obsm["X_cnv"] = tmp.f.arr_0.item()
 
         # plot spatial
@@ -125,7 +139,8 @@ def curate_cnv_ST(pat, d, sample_key, CNV_group="CNV_group"):
 
     # read in CNV genomic partitions
     a_comb.uns["cnv"] = np.load(
-        "infercnv/uns_cnv_{}.npy".format(
+        "{}/uns_cnv_{}.npy".format(
+            infercnv_dir,
             sample_key.loc[sample_key[CNV_group] == pat, "CNV_group"][0]
         ),
         allow_pickle="TRUE",
@@ -147,7 +162,12 @@ def curate_cnv_ST(pat, d, sample_key, CNV_group="CNV_group"):
     )
 
 
-def curate_cnv_scRNA(adata, pat, d):
+def curate_cnv_scRNA(
+        adata,
+        pat,
+        d,
+        infercnv_dir="infercnv/",
+    ):
     """
     adata: anndata.AnnData
         Anndata object containing scRNA-seq counts
@@ -163,7 +183,7 @@ def curate_cnv_scRNA(adata, pat, d):
     )
     colordict = {**base_colordict, **clones_colordict}
     # save CNV cluster colors
-    np.save("infercnv/cnv_clone_colors_{}.npy".format(pat), colordict)
+    np.save("{}/cnv_clone_colors_{}.npy".format(infercnv_dir, pat), colordict)
     # map new CNV clone values into adata.obs
     print("Mapping new 'CNV clone' values into adata.obs")
     tmp = adata[
