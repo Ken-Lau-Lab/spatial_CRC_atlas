@@ -23,7 +23,7 @@ These analyses integrate single-cell RNA sequencing (scRNA-seq), spatial transcr
 Code in this repository is intended to be run in order, as some analyses depend on outputs from previous tools. We therefore divide up the analysis notebooks into steps, provided as ordered directories.
 
 1. Download publicly available data using the scripts in the `data/` directory first
-2. Proceed to the notebooks in the `step1/` directory, then `step2/` and so forth. All notebooks residing in the same directory can be run in any order, but they *all* must be successfully run before proceeding to the next step.
+2. Proceed to the notebooks in the `step1/` directory, then `step2/`, and `step3/` and so forth. All notebooks residing in the same directory can be run in any order, but they *all* must be successfully run before proceeding to the next step.
 
 ## Flow Chart of Analyses
 

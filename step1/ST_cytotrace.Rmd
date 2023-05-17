@@ -1,6 +1,5 @@
 ---
-title: "cytotrace_bob_revised"
-output: html_notebook
+title: "cytotrace_ST"
 ---
 
 This notebook contains an updated **CytoTRACE** method for compatibility with AnnData objects in `.h5ad` format.
@@ -22,6 +21,7 @@ setwd("/home/cody/git/spatial_CRC_atlas/step1/")
 
 # make directory for outputs
 dir.create("./ST_out/", showWarnings = FALSE)
+dir.create("./ST_out/CytoTRACE/", showWarnings = FALSE)
 ```
 
 ```{r}
@@ -281,19 +281,27 @@ CytoTRACE_fixed <- function(mat, batch = NULL, enableFast = TRUE,
 ```
 
 ```{r}
-for (i in c("2","3","4","5","6","7","8")){
-    data_in <- paste0(
-      "../data/ST/",
-      i,
-      "_filtered_trimmed.h5ad"
-    )
+for (data_in in list.files("../data/ST/")){
+  if (grep("filtered_trimmed", data_in)){
+    message(data_in)
     results <- CytoTRACE_fixed(
-      prepare_data(data_in),
+      prepare_data(paste0("../data/ST/", data_in)),
       subsamplesize = 3000,
       ncores = 2,
       enableFast = TRUE
     )
 
-    write.csv(results$CytoTRACE, paste0("ST_out/", "8899_", i, "_CytoTRACE.csv"))
-} 
+    write.csv(
+      results$CytoTRACE,
+      paste0(
+        "ST_out/CytoTRACE/",
+        str_replace(
+          string = file,
+          pattern = ".h5ad",
+          replacement = "_CytoTRACE.csv"
+        )
+      )
+    )
+  }
+}
 ```

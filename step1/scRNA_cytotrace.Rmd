@@ -1,6 +1,5 @@
 ---
-title: "cytotrace_bob_revised"
-output: html_notebook
+title: "cytotrace_scRNA"
 ---
 
 This notebook contains an updated **CytoTRACE** method for compatibility with AnnData objects in `.h5ad` format.
