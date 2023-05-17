@@ -4,19 +4,17 @@ Code to reproduce results from [Heiser, *et al.* (2023)](https://doi.org/10.1101
 
 ## Purpose
 
-These analyses integrate single-cell RNA sequencing (scRNA-seq), spatial transcriptomics (ST), multiplex immunofluorescence (MxIF), and multiregional exome sequencing via laser-capture microdissection (LCM-WES) to generate models and metrics presented in our manuscript, "Molecular cartography uncovers evolutionary and microenvironmental dynamics in sporadic colorectal tumors" (currently in review at *Cell*; bioRxiv preprint available: [doi.org/10.1101/2023.03.09.530832](https://doi.org/10.1101/2023.03.09.530832)). Functions herein include:
+These analyses integrate single-cell RNA sequencing (scRNA-seq), spatial transcriptomics (ST), and multiregional exome sequencing via laser-capture microdissection (LCM-WES) to generate models and metrics presented in our manuscript, "Molecular cartography uncovers evolutionary and microenvironmental dynamics in sporadic colorectal tumors" (currently in review at *Cell*; bioRxiv preprint available: [doi.org/10.1101/2023.03.09.530832](https://doi.org/10.1101/2023.03.09.530832)). Functions herein include:
 
 * Reading in and pre-processing data
 * Scoring literature-derived gene signatures in scRNA-seq and ST
 * Somatic CNV inference in scRNA-seq and ST
 * Phylogenetic analysis from LCM-WES
 * refNMF cell state deconvolution between scRNA-seq and ST
-* Single-cell segmentation and quantification of MxIF images
-* Spatial registration of MxIF and ST
 * MILWRM tissue domain detection
 * Summaries and visualizations of integrated spatial data
 * GAM modeling of genes, gene signatures, and cell states along progression pseudotime (PPT)
-* Immune Exclusion analysis in ST and MxIF
+* Immune Exclusion analysis in ST
 
 ## Order of Operations
 
