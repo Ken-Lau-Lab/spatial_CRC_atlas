@@ -9,5 +9,3 @@
 `ST_summaries_CNV.ipynb` - Python notebook for plotting summary dotplots (heatmaps) of gene signatures and refNMF cell states by CNV Clone per patient.
 
 `CNV_score_summary.ipynb` - Python notebook for summarizing CNV Scores from [`infercnvpy`](https://github.com/icbi-lab/infercnvpy) for all Visium ST and scRNA data.
-
-`ST_wholeslide_transform.ipynb` - Python notebook for registering Visium ST coordinates to whole-slide MxIF space for applicable specimens.

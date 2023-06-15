@@ -4,6 +4,8 @@
 
 `scRNA_summaries.ipynb` - Python notebook for plotting summary dotplots (heatmaps) of gene signatures by tumor class, patient, etc.
 
+`scRNA_immexcl_analysis.ipynb` - Python notebook for scoring IES and using refNMF to quantify CD8 T cell abundance per tumor
+
 ## ST
 
 `ST_gene_signatures.ipynb` - Python notebook for scoring literature-derived gene signatures on Visium ST datasets in `.h5ad` format.

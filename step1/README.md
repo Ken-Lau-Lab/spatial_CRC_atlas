@@ -10,7 +10,7 @@
 
 ## ST
 
-`ST_cytotrace.Rmd` - R notebook for running [`CytoTRACE`](https://cytotrace.stanford.edu/) on Visium ST datasets in `.h5ad` format
+`ST_cytotrace.Rmd` - R notebook for running [`CytoTRACE`](https://cytotrace.stanford.edu/) on Visium ST datasets in `.h5ad` format. __NOTE:__ in order for this notebook to run properly, the `.h5ad` files must be _dense_, i.e. `.X` cannot be a `scipy.sparse` matrix. Conversion might be necessary prior to running this notebook in the future.
 
 `ST_MILWRM_refNMF.Rmd` - R notebook for running reference NMF (refNMF) deconvolution followed by [`MILWRM`](https://github.com/Ken-Lau-Lab/MILWRM) tissue domain detection on Visium ST datasets in `.h5ad` format.
 
