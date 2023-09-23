@@ -1,0 +1,8 @@
+alpha: 0.0
+beta_loss: frobenius
+init: random
+l1_ratio: 0.0
+max_iter: 400
+regularization: null
+solver: cd
+tol: 0.0001
