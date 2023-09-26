@@ -19,7 +19,7 @@ These analyses integrate single-cell RNA sequencing (scRNA-seq), spatial transcr
 ## Downloading Data
 Annotated, pre-processed data compatible with the codebase can be downloaded from OSF Storage: [https://osf.io/hftq2/](https://osf.io/hftq2/)
 
-All raw data have been deposited to the HTAN Data Coordinating Center Data Portal at the National Cancer Institute: \url{https://data.humantumoratlas.org/} (under the HTAN Vanderbilt Atlas).
+All raw data have been deposited to the HTAN Data Coordinating Center Data Portal at the National Cancer Institute: [https://data.humantumoratlas.org/](https://data.humantumoratlas.org/) (under the HTAN Vanderbilt Atlas).
 
 ## Order of Operations
 
