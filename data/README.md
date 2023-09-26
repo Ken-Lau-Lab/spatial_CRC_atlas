@@ -1,15 +1,6 @@
 # Data Downloads
 
-## scRNA
+Downloads are available from OSF Storage at [https://osf.io/hftq2/](https://osf.io/hftq2/)
 
-`download_scRNA.sh` - execute to pull scRNA data in `.h5ad` compressed format to `data/scRNA/`. Then start at `step1` "scRNA" analysis.
-
-## ST
-
-`download_scRNA.sh` - execute to pull Visium ST data in `.h5ad` compressed format to `data/ST/`. Then start at `step1` "ST" analysis.
-
-`download_scRNA.sh` - execute to pull fully annotated Visium ST data in `.h5ad` compressed format to `data/ST/`. *Run this script to skip to `step5` "ST" analysis*.
-
-## WES
-
-`download_WES.sh` - execute to pull WES data to `data/WES/`. Then start at `step1` "WES" analysis.
+You can download the `scRNA/`, `WES/`, and `ST/` directories and place them here, and start from `step1` analysis.
+In order to skip to `step5` "ST" analysis, you may download the `ST_master/` directory and place contents in the `ST/` subdirectory here.
