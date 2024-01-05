@@ -1,10 +1,10 @@
 # spatial_CRC_atlas
 
-Code to reproduce results from [Heiser, *et al.* (2023)](https://doi.org/10.1101/2023.03.09.530832).
+Code to reproduce results from [Heiser, *et al.* (2023)](https://doi.org/10.1016/j.cell.2023.11.006).
 
 ## Purpose
 
-These analyses integrate single-cell RNA sequencing (scRNA-seq), spatial transcriptomics (ST), and multiregional exome sequencing via laser-capture microdissection (LCM-WES) to generate models and metrics presented in our manuscript, "Molecular cartography uncovers evolutionary and microenvironmental dynamics in sporadic colorectal tumors" (currently in review at *Cell*; bioRxiv preprint available: [doi.org/10.1101/2023.03.09.530832](https://doi.org/10.1101/2023.03.09.530832)). Functions herein include:
+These analyses integrate single-cell RNA sequencing (scRNA-seq), spatial transcriptomics (ST), and multiregional exome sequencing via laser-capture microdissection (LCM-WES) to generate models and metrics presented in our _Cell_ manuscript, ["Molecular cartography uncovers evolutionary and microenvironmental dynamics in sporadic colorectal tumors"](https://doi.org/10.1016/j.cell.2023.11.006). Functions herein include:
 
 * Reading in and pre-processing data
 * Scoring literature-derived gene signatures in scRNA-seq and ST
